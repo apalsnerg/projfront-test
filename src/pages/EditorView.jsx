@@ -349,6 +349,7 @@ export default function EditorView() {
     const updatedContent = value || "";
 
     setSaveStatus("saving");
+    setFileContent(updatedContent);
 
     GSocketInstance.emit("content", {
       content: editorRef.current?.getValue(),
