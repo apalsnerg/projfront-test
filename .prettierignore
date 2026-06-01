@@ -1,0 +1,9 @@
+# Folders
+dist/
+
+# File formats
+**/*.html
+**/*.md
+**/*.txt
+**/*.config.*
+**/*.min.css

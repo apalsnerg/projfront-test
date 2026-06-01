@@ -1,0 +1,28 @@
+# Installs node dependencies, builds the source code, and runs linters formatters.
+# See https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs for details.
+
+name: Node.js CI
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+    
+    steps:
+    - uses: actions/checkout@v6
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run eslint:check
+    - run: npm run stylelint:check
+    - run: npm run prettier:check
+    - run: npm run test
